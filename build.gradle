@@ -20,19 +20,30 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
+	implementation 'com.h2database:h2'
+	implementation 'org.postgresql:postgresql'
+
+	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 //	implementation 'javax.servlet:jstl'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
 	implementation 'com.fasterxml.jackson.core:jackson-core'
+	implementation 'org.projectlombok:lombok:1.18.26'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation group: 'org.assertj', name: 'assertj-core'
 //	testImplementation 'org.assertj:assertj-core:3.23.1'
+
+	runtimeOnly 'com.h2database:h2'
+
+	annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
