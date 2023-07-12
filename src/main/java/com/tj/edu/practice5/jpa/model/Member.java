@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor(force = true)
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @Entity
+@Table(name = "memberCopy")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +24,8 @@ public class Member {
 //    @NonNull
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Address> address;
+    private boolean male;
 }

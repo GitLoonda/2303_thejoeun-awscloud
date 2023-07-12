@@ -50,7 +50,7 @@ class MemberRepositoryTest {
 
         // update문
         System.out.println("update문 --------------------------------------------------------");
-        Member member1 = new Member(1L, "홍길동", "이메일 주소", LocalDateTime.now(), LocalDateTime.now());
+        Member member1 = new Member(1L, "홍길동", "이메일 주소", LocalDateTime.now(), LocalDateTime.now(), null, true);
         memberRepository.save(member1);     // 1번을 가진 id가 있다면 update, 없으면 create문 발생
         List<Member> memberList3 = memberRepository.findAll();
         memberList3.forEach(System.out::println);
@@ -89,7 +89,7 @@ class MemberRepositoryTest {
 //                .email("parkjoeun@gmail.com")
 //                .createAt(LocalDateTime.now())
 //                .build();
-        Member member3 = new Member(15L, "박조은", "parkjoeun@gmail.com", LocalDateTime.now(), null);
+        Member member3 = new Member(15L, "박조은", "parkjoeun@gmail.com", LocalDateTime.now(), null, null, false);
 
         memberRepository.save(member3);
 

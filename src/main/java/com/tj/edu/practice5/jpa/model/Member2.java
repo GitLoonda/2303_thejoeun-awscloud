@@ -1,10 +1,7 @@
 package com.tj.edu.practice5.jpa.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @Entity
+@Table(name = "memberCopy")
 public class Member2 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +20,5 @@ public class Member2 {
     @NonNull
     private String name;
     private String email;
+    private String email2;
 }
