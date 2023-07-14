@@ -14,7 +14,9 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    Set<Member> findByEmail(String email);
+
+    Member findByEmail(String email);
+//    Set<Member> findByEmail(String email);
     List<Member> findByName(String name);
     Page<Member> findByName(String name, Pageable pageable);
 //    Optional<Member> findByCreateAt(LocalDateTime localDateTime);

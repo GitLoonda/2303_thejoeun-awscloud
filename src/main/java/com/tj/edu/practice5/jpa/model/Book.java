@@ -2,17 +2,15 @@ package com.tj.edu.practice5.jpa.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper=true)
 @Entity
 @EntityListeners(value = AuditingEntityListener.class)
 public class Book extends BaseEntity {
@@ -20,11 +18,23 @@ public class Book extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+//    private String author;
+
     @OneToOne(mappedBy = "book")
     @ToString.Exclude
     private BookReviewInfo bookReviewInfo;
 
-    private String name;
-    private String author;
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<Review> reviews;
 
+    @ManyToOne
+    @ToString.Exclude
+    private Publisher publisher;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private List<Author> authors;
 }

@@ -20,8 +20,9 @@ public class Address extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(optional = false)
+    @ManyToOne
     private Member member;
+
     private String zipcode;
 
 }

@@ -1,6 +1,5 @@
 package com.tj.edu.practice5.jpa.repository;
 
-import com.tj.edu.practice5.jpa.model.Board;
 import com.tj.edu.practice5.jpa.model.Member;
 import com.tj.edu.practice5.jpa.model.MemberLogHistory;
 import com.tj.edu.practice5.jpa.model.enums.Nation;
@@ -11,12 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.startsWith;
 
 
 @SpringBootTest
@@ -33,7 +30,6 @@ class MemberRepositoryTest {
                 .name("유재석")
                 .male(true)
                 .email("grasshopper@thejoeun.com")
-
                 .nation(Nation.KOREA)
                 .build();
         return memberRepository.save(member);
@@ -242,9 +238,20 @@ class MemberRepositoryTest {
     @Test
     void oneToManyTest() {
         Member member = getMember();
-        List<MemberLogHistory> memberLogHistories = memberLogHistoryRepository.findByMemberId(member.getId());
-        Optional<Member> member2 = memberRepository.findById(memberLogHistories.get(0).getMemberId());
-        System.out.println(memberRepository.findAll());
+        member.setName("김종국");
+        memberRepository.save(member);
+
+        List<MemberLogHistory> memberLogHistories
+                = memberRepository.findByEmail("grasshopper@thejoeun.com").getMemberLogHistories();
+        memberLogHistories.forEach(System.out::println);
+
+//        List<Member> memberList = memberRepository.findAll();
+//        Member member2 = memberList.get(7);
+//        List<MemberLogHistory> memberLogHistories = member2.getMemberLogHistories();
+//        System.out.println(">>>" + memberLogHistories);
+//        List<MemberLogHistory> memberLogHistories = memberLogHistoryRepository.findByMemberId(member.getId());
+//        Optional<Member> member2 = memberRepository.findById(memberLogHistories.get(0).getMemberId());
+//        System.out.println();
     }
 
     @Test

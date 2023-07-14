@@ -23,8 +23,8 @@ public class JpaQueryMethodTest {
     @Test
     void jpaQueryMethodTest1() {
         // SELECT문 email 값을 갖는 튜플 셋을 가져오기
-        Set<Member> memberSet = memberRepository.findByEmail("leesunsin@gmail.com");
-        System.out.println(memberSet);
+//        Set<Member> memberSet = memberRepository.findByEmail("leesunsin@gmail.com");
+//        System.out.println(memberSet);
 
         // SELECT문 name 값을 갖는 튜플 리스트를 가져오기
         List<Member> memberList = memberRepository.findByName("홍길동");

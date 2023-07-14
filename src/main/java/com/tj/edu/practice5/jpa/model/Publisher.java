@@ -4,22 +4,26 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.List;
+
 @Builder
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper= false)
 @Entity
 @EntityListeners(value = AuditingEntityListener.class)
-public class BookReviewInfo extends BaseEntity {
+@Table(name = "publisher")
+public class Publisher extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(optional = false)
-    private Book book;
+    @Column(nullable = false)
+    private String name;
 
-    private int reviewCount;
-    private float avgReviewScore;
+    @OneToMany
+    @JoinColumn(name = "publisher_id", insertable = false, updatable = false)
+    @ToString.Exclude
+    private List<Book> books;
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Builder
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -32,13 +32,13 @@ public class Member extends BaseEntity {
     @Column(columnDefinition = "varchar(100) comment '이메일'", unique = true)
     private String email;
 
-//    @OneToMany(fetch = FetchType.EAGER)
-//    private List<Address> address;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Address> address;
 
     @Column(columnDefinition = "boolean DEFAULT false comment '성별'")
     private boolean male;
 
-//    @Transient  // DB에 반영되지 않는 요소
+    @Transient  // DB에 반영되지 않는 데이터
     private String testData;
 
     @Column(columnDefinition = "varchar(20)", nullable = true)
@@ -46,7 +46,14 @@ public class Member extends BaseEntity {
     private Nation nation;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
+    @ToString.Exclude
     private List<MemberLogHistory> memberLogHistories;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
+    @ToString.Exclude
+    private List<Review> reviews;
 
     @PrePersist
     public void preInsert1() {
@@ -73,7 +80,7 @@ public class Member extends BaseEntity {
          System.out.println(">>> Member Delete 후");
      }
      @PostLoad
-    public void afterSelect1() {
+     public void afterSelect1() {
          System.out.println(">>> Member Select 후");
      }
 }

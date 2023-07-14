@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MemberLogHistoryRepository extends JpaRepository<MemberLogHistory, Long> {
     List<MemberLogHistory> findByMemberId(Long memberId);
+    List<MemberLogHistory> findByEmail(String email);
 }

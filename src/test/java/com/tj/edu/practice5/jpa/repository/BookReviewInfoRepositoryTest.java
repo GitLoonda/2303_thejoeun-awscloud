@@ -21,7 +21,7 @@ public class BookReviewInfoRepositoryTest {
     private Book givenBook() {
         Book book = Book.builder()
                 .name("아주 쉬운 스프링 부트 3.1")
-                .author("저자 미상")
+//                .author("저자 미상")
                 .build();
 
         return bookRepository.save(book);

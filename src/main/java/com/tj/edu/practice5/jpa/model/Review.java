@@ -2,33 +2,30 @@ package com.tj.edu.practice5.jpa.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
+@EqualsAndHashCode(callSuper= false)
 @Entity
 @EntityListeners(value = AuditingEntityListener.class)
-public class MemberLogHistory implements TimeAuditable{
+@Table(name = "review")
+public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String email;
+    @Column(columnDefinition = "varchar(500)", nullable = false)
+    private String title;
+
+    @Column(columnDefinition = "text")
+    private String content;
 
     @ManyToOne
     private Member member;
 
-    @CreatedDate
-    private LocalDateTime createAt;
-
-    @LastModifiedDate
-    private LocalDateTime updateAt;
+    @ManyToOne
+    private Book book;
 }

@@ -16,7 +16,7 @@ public class MemberEntityListener {
 
         Member member = (Member) obj;
         MemberLogHistory memberLogHistory = MemberLogHistory.builder()
-                .memberId(member.getId())
+                .member(member)
                 .name(member.getName())
                 .email(member.getEmail())
                 .build();
