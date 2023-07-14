@@ -13,15 +13,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @ToString
-@EqualsAndHashCode(callSuper=false)
 @Entity
-public class Address extends BaseEntity {
+@EntityListeners(value = AuditingEntityListener.class)
+public class MemberLogHistory implements TimeAuditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(optional = false)
-    private Member member;
-    private String zipcode;
 
+    private Long memberId;
+
+    private String name;
+    private String email;
+
+    @CreatedDate
+    private LocalDateTime createAt;
+
+    @LastModifiedDate
+    private LocalDateTime updateAt;
 }

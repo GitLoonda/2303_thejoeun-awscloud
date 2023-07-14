@@ -12,16 +12,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Data
-@ToString
 @EqualsAndHashCode(callSuper=false)
 @Entity
-public class Address extends BaseEntity {
+@EntityListeners(value = AuditingEntityListener.class)
+public class Book extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(optional = false)
-    private Member member;
-    private String zipcode;
+    @OneToOne(mappedBy = "book")
+    @ToString.Exclude
+    private BookReviewInfo bookReviewInfo;
+
+    private String name;
+    private String author;
 
 }

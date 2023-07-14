@@ -17,7 +17,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Set<Member> findByEmail(String email);
     List<Member> findByName(String name);
     Page<Member> findByName(String name, Pageable pageable);
-    Optional<Member> findByCreateAt(LocalDateTime localDateTime);
+//    Optional<Member> findByCreateAt(LocalDateTime localDateTime);
     boolean existsByEmail(String email);
     int countByName(String name);
     List<Member> findFirst1ByEmail(String email);
@@ -31,10 +31,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByIdAndNameOrEmail(Long id, String name, String email);
     List<Member> findByIdOrNameAndEmail(Long id, String name, String email);
 
-    List<Member> findByCreateAtAfter(LocalDateTime createAt);
-    List<Member> findByCreateAtBefore(LocalDateTime createAt);
+//    List<Member> findByCreateAtAfter(LocalDateTime createAt);
+//    List<Member> findByCreateAtBefore(LocalDateTime createAt);
     List<Member> findByIdGreaterThan(Long id);
-    List<Member> findByCreateAtLessThan(LocalDateTime createAt);
+//    List<Member> findByCreateAtLessThan(LocalDateTime createAt);
     List<Member> findByIdGreaterThanEqualOrIdLessThanEqual(Long id1, Long id2);
     List<Member> findByNameLike(String likeName);
     List<Member> findByEmailLike(String likeEmail);
@@ -42,8 +42,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByNameContains(String fragment);
 
     List<Member> findByNameOrderByIdDesc(String name);
-    List<Member> findByAddressIsEmpty();
-    List<Member> findByAddressIsNotEmpty();
+//    List<Member> findByAddressIsEmpty();
+//    List<Member> findByAddressIsNotEmpty();
     List<Member> findByMaleIsFalse();
 }
 

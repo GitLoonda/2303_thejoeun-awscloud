@@ -31,8 +31,8 @@ public class JpaQueryMethodTest {
         memberList.forEach(System.out::println);
 
         // SELECT문 createAt 값을 갖는 튜플 옵션을 가져오기
-        Optional<Member> memberOptional = memberRepository.findByCreateAt(LocalDateTime.MIN);
-        System.out.println(memberOptional);
+//        Optional<Member> memberOptional = memberRepository.findByCreateAt(LocalDateTime.MIN);
+//        System.out.println(memberOptional);
 
         boolean memberExist = memberRepository.existsByEmail("kangkamchan@thejoeun.com");
         System.out.println(memberExist);
@@ -60,10 +60,10 @@ public class JpaQueryMethodTest {
         memberRepository.findByIdOrNameAndEmail(1L, "홍길동", "namsun@thejoeun.com")
                         .forEach(s -> System.out.println(s));
 
-        memberRepository.findByCreateAtAfter(LocalDateTime.now()).forEach(s -> System.out.println(s));
-        memberRepository.findByCreateAtBefore(LocalDateTime.now()).forEach(s -> System.out.println(s));
+//        memberRepository.findByCreateAtAfter(LocalDateTime.now()).forEach(s -> System.out.println(s));
+//        memberRepository.findByCreateAtBefore(LocalDateTime.now()).forEach(s -> System.out.println(s));
         memberRepository.findByIdGreaterThan(3L).forEach(s -> System.out.println(s));
-        memberRepository.findByCreateAtLessThan(LocalDateTime.now()).forEach(System.out::println);
+//        memberRepository.findByCreateAtLessThan(LocalDateTime.now()).forEach(System.out::println);
         memberRepository.findByIdGreaterThanEqualOrIdLessThanEqual(5L, 3L).forEach(System.out::println);
         memberRepository.findByNameLike("%순%").forEach(System.out::println);
         memberRepository.findByEmailLike("%@thejoeun.com%").forEach(System.out::println);
@@ -71,8 +71,8 @@ public class JpaQueryMethodTest {
         memberRepository.findByNameContains("순").forEach(System.out::println);
 
         memberRepository.findByNameOrderByIdDesc("홍길동").forEach(System.out::println);
-        memberRepository.findByAddressIsEmpty().forEach(System.out::println);
-        memberRepository.findByAddressIsNotEmpty().forEach(System.out::println);
+//        memberRepository.findByAddressIsEmpty().forEach(System.out::println);
+//        memberRepository.findByAddressIsNotEmpty().forEach(System.out::println);
         memberRepository.findByMaleIsFalse().forEach(System.out::println);
 
         Page<Member> memberPage = memberRepository.findByName("홍길동", PageRequest.of(0, 3));

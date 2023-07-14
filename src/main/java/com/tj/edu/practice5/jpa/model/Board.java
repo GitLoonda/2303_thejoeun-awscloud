@@ -1,10 +1,10 @@
 package com.tj.edu.practice5.jpa.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -14,14 +14,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @ToString
-public class Board {
+@EqualsAndHashCode(callSuper=false)
+public class Board extends BaseEntity {
     @Id
     private String boardNo;
     private String boardKind;
     private String keywordType;
     private String userId;
-    private String cdatetime;
-    private String udatetime;
     private String title;
     private String content;
     private String viewCnt;
