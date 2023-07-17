@@ -2,11 +2,16 @@ package com.tj.edu.practice5.jpa.repository;
 
 import com.tj.edu.practice5.jpa.model.*;
 import com.tj.edu.practice5.jpa.model.enums.Nation;
+import jakarta.persistence.Tuple;
 import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 public class BookRepositoryTest {
@@ -47,6 +52,86 @@ public class BookRepositoryTest {
         Book book = member.getReviews().get(0).getBook();
         Publisher publisher = book.getPublisher();
 //        Author author = book.getAuthor();
+    }
+
+    @Test
+    void jpqlTest1() {
+        List<Book> bookList = bookRepository.findByMyBooks("재미있는 자바책");
+        bookList.forEach(System.out::println);
+
+        System.out.println("=========================================");
+
+        List<Book> bookList2 = bookRepository.findByMyBooksAndMyId("재미있는 자바책", 2L);
+        bookList2.forEach(System.out::println);
+
+        System.out.println("=========================================");
+
+        List<Book> bookList3 = bookRepository.findByMyIdAndMyBooks(2L, "재미있는 자바책");
+        bookList3.forEach(System.out::println);
+
+        System.out.println("=========================================");
+
+        List<String> bookList4 = bookRepository.findNameByMyBooks("재미있는 자바책");
+        bookList4.forEach(System.out::println);
+
+        System.out.println("=========================================");
+
+        // 메소드에서 return 해주는 book 객체를 convert 하지 못해 에러 발생
+//        List<Book> bookList5 = bookRepository.findNameIdByMyBooks("재미있는 자바책");
+//        bookList5.forEach(System.out::println);
+        List<Map<String, Object>> listMap1 = bookRepository.findNameIdByMyBooks("재미있는 자바책");
+        listMap1.forEach(x -> System.out.println(x.entrySet()));
+
+        List<Map<String, Object>> listMap2 = bookRepository.findByNamedNameIdByMyBooks("재미있는 자바책");
+        listMap2.forEach(x -> System.out.println(x.entrySet()));
+
+    }
+
+    @Test
+    void nativeSqlTest() {
+        List<Book> bookList = bookRepository.findByNativeByMyBooks();
+        bookList.forEach(System.out::println);
+
+        List<Book> bookList2 = bookRepository.findByNativeByMyBooks("재미있는 자바책");
+        bookList2.forEach(System.out::println);
+
+        List<Book> bookList3 = bookRepository.findByNativeByMyBooks(1L, "재미있는 자바책");
+        bookList3.forEach(System.out::println);
+    }
+
+    @Test
+    void customModelJpaTest() {
+        List<BookAndId> listMap = bookRepository.findByCustomByMyBooks("재미있는 자바책");
+        listMap.forEach(s -> System.out.println(s.getIdentifier() + " : " + s.getLetter()));
+    }
+
+    @Test
+    void tupleModelJpaTest() {
+        List<Tuple> tupleList = bookRepository.findByTupleByMyBooks("재미있는 자바책");
+        tupleList.forEach(tuple -> System.out.println(tuple.get(0) + " : " + tuple.get(1)));
+    }
+
+    @Test
+    @Transactional
+//    @Commit
+    void updateJpaTest1() {
+        int isUpdate = bookRepository.updateSpecificName(2L, "재미없는 자바책");
+        System.out.println("2번 id를 가진 book의 이름 " + (isUpdate > 0 ? "바뀜" : "바뀌지 않음"));
+        System.out.println(bookRepository.findById(2L));
+    }
+
+    @Test
+    @Transactional
+    void insertJpaTest1() {
+        bookRepository.insertBook("테스트");
+        bookRepository.findByNativeByMyBooks().forEach(System.out::println);
+    }
+
+    @Test
+    @Transactional
+    void deleteJpaTest1() {
+        bookRepository.insertBook("테스트");
+        bookRepository.deleteBookByName("테스트");
     }
 
     private Review giveBookAndReview() {
@@ -94,4 +179,5 @@ public class BookRepositoryTest {
 
         return authorRepository.save(author);
     }
+
 }
