@@ -73,3 +73,7 @@ spring:
               sql: trace
 #        hibernate: trace
 #        root: trace
+
+jwt:
+  issuer: loonda9703@gmail.com
+  secret_key: 1234

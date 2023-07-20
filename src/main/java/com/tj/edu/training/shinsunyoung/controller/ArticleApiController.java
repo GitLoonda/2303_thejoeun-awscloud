@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -43,6 +45,8 @@ public class ArticleApiController {
             ArticleResponse articleResponse = new ArticleResponse(article);
             articleResponseList.add(articleResponse);
         }
+        Collections.sort(articleResponseList,
+                Comparator.comparingLong(ArticleResponse::getId).reversed());
 
 //        return ResponseEntity.status(HttpStatus.OK)
         return ResponseEntity.ok().body(articleResponseList);

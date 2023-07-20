@@ -37,25 +37,25 @@ if(createBtn) {
 //})
 //}
 
-if(deleteBtn) {
-    createBtn.addEventListener('click', evt => {
-    if(!confirm("정말 삭제하시겠습니까?")) {
-        return;
-    }
-    fetch('/api/articles', {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            id: document.getElementById('article-id').value
-        })
-    }).then(data => {
-        alert('삭제되었습니다.');
-        location.replace("/articles");
-    })
-    })
-}
+//if(deleteBtn) {
+//    createBtn.addEventListener('click', evt => {
+//    if(!confirm("정말 삭제하시겠습니까?")) {
+//        return;
+//    }
+//    fetch('/api/articles', {
+//        method: 'DELETE',
+//        headers: {
+//            "Content-Type": "application/json",
+//        },
+//        body: JSON.stringify({
+//            id: document.getElementById('article-id').value
+//        })
+//    }).then(data => {
+//        alert('삭제되었습니다.');
+//        location.replace("/articles");
+//    })
+//    })
+//}
 
 if(backBtn) {
     backBtn.addEventListener('click', evt => {
