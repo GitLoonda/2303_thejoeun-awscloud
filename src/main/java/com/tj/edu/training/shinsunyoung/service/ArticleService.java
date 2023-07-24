@@ -5,6 +5,7 @@ import com.tj.edu.training.shinsunyoung.model.dto.AddArticleRequest;
 import com.tj.edu.training.shinsunyoung.model.dto.UpdateArticleRequest;
 import com.tj.edu.training.shinsunyoung.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,9 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
 
     // article 저장
-    public Article save(AddArticleRequest request) {
+    public Article save(AddArticleRequest request, String userName) {
 //        return articleRepository.save(new Article(request.getTitle(), request.getContent()));
-        return articleRepository.save(request.toEntity());
+        return articleRepository.save(request.toEntity(userName));
     }
 
     // article 리스트 불러오기
@@ -34,11 +35,8 @@ public class ArticleService {
 
     // article 지우기
     public void deleteArticle(Long id) {
-        if(getArticle(id) != null) {
-            articleRepository.deleteById(id);
-        } else {
-            throw new IllegalArgumentException("not found : " + id);
-        }
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Not Found : " + id));
     }
 
     // article 수정하기
@@ -46,9 +44,19 @@ public class ArticleService {
     public Article updateArticle(Long id, UpdateArticleRequest request) {
 
         Article article = articleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Not Found : " + id));
+        authorizeArticleAuthor(article);
         article.update(request.getTitle(), request.getContent());
 
         return article;
+    }
+
+    private void authorizeArticleAuthor(Article article) {
+
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(!article.getAuthor().equals(userName)) {
+            throw new IllegalArgumentException("Not Authorized");
+        }
     }
 }

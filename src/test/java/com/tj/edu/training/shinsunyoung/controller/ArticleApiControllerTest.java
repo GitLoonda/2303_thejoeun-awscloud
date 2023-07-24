@@ -54,9 +54,11 @@ class ArticleApiControllerTest {
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
+        final String author = "author";
         final AddArticleRequest request = AddArticleRequest.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build();
 
         // java 자료형을 ObjectManager를 통해 json string 형태로 바꾸어줌
@@ -85,9 +87,11 @@ class ArticleApiControllerTest {
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
+        final String author = "author";
         articleRepository.save(Article.builder()
                     .title(title)
                     .content(content)
+                    .author(author)
                     .build());
 
         // 2. when(postman에서 get api를 호출한 것과 같은 효과)
@@ -108,10 +112,12 @@ class ArticleApiControllerTest {
         final String url = "/api/articles/{id}";
         final String title = "title";
         final String content = "content";
+        final String author = "author";
 
         Article savedArticle = articleRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build());
 
         // when
@@ -121,6 +127,7 @@ class ArticleApiControllerTest {
         // then
         resultActions
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.author").value(author))
                 .andExpect(jsonPath("$.content").value(content))
                 .andExpect(jsonPath("$.title").value(title));
     }
@@ -149,9 +156,12 @@ class ArticleApiControllerTest {
         final Long id = 3L;
         final String title = "title";
         final String content = "content";
+        final String author = "author";
+
         final UpdateArticleRequest request = UpdateArticleRequest.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build();
         // java 자료형을 ObjectManager를 통해 json string 형태로 바꾸어줌
         final String requestBody = om.writeValueAsString(request);
@@ -162,6 +172,7 @@ class ArticleApiControllerTest {
         // then
         resultActions.andExpect(status().isOk());
         List<Article> articles = articleRepository.findAll();
+        assertThat(articles.get(2).getAuthor()).isEqualTo(author);
         assertThat(articles.get(2).getTitle()).isEqualTo(title);
         assertThat(articles.get(2).getContent()).isEqualTo(content);
     }

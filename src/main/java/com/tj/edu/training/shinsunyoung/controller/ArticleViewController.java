@@ -18,6 +18,11 @@ public class ArticleViewController {
 
     private final ArticleService articleService;
 
+    @GetMapping("/")
+    public String main() {
+        return "redirect:/articles";
+    }
+
     @GetMapping("/articles")
     public String getArticles(Model model) {
         List<ArticleListViewResponse> articleResponseList = articleService.getArticlesAll().stream()
@@ -27,7 +32,7 @@ public class ArticleViewController {
         return "articleList";
     }
 
-    @GetMapping("/article/{id}")
+    @GetMapping("/articles/{id}")
     public String getArticle(@PathVariable Long id, Model model) {
         Article article = articleService.getArticle(id);
         model.addAttribute("article", new ArticleListViewResponse(article));

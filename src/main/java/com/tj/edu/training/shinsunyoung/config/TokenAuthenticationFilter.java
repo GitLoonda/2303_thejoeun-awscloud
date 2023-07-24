@@ -22,13 +22,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 요청 헤더이서 Authorization 키 값 조회
-        String authValueInHeader =  request.getHeader(HEADER_AUTHORIZATION);
-        String token = getAccessToken(authValueInHeader);
-
-        if(tokenProvider.validJwtToken(token)) {
-            Authentication authentication = tokenProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
+//        String authValueInHeader =  request.getHeader(HEADER_AUTHORIZATION);
+//        String token = getAccessToken(authValueInHeader);
+//
+//        if(tokenProvider.validJwtToken(token)) {
+//            Authentication authentication = tokenProvider.getAuthentication(token);
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//        }
 
         filterChain.doFilter(request, response);
     }

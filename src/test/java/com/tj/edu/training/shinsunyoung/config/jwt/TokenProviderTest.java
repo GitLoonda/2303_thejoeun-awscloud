@@ -38,6 +38,7 @@ class TokenProviderTest {
         // 테스트 유저 데이터 생성
         User testUser = userRepository.save(User.builder()
                 .email("user1@abc.com")
+                .nickname("testuser1")
                 .password("abcd")
                 .build());
 
@@ -53,11 +54,12 @@ class TokenProviderTest {
                 .get("id", Long.class);
     }
 
-    @DisplayName("generateToken() 테스트")
+    @DisplayName("validJwtToken() 테스트")
     @Test
     void validJwtTokenTest1() {
         User testUser = userRepository.save(User.builder()
                 .email("user1@abc.com")
+                .nickname("testuser1")
                 .password("abcd")
                 .build());
 

@@ -21,6 +21,9 @@ public class User implements UserDetails {
     @Column(updatable = false)
     private Long id;
 
+    @Column(name = "nickname", unique = true)
+    private String nickname;
+
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -29,15 +32,17 @@ public class User implements UserDetails {
     private String accessToken;
 
     @Builder
-    public User(String email, String password) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
     @Builder
-    public User(String email, String password, String accessToken) {
+    public User(String email, String password, String nickname, String accessToken) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
         this.accessToken = accessToken;
     }
 
@@ -74,5 +79,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User update(String nickname) {
+        this.nickname = nickname;
+        return this;
     }
 }

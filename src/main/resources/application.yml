@@ -74,6 +74,17 @@ spring:
 #        hibernate: trace
 #        root: trace
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 828607841252-7sn13ahvqr308lhmjqf11m6m4rdu5npj.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+
 jwt:
   issuer: loonda9703@gmail.com
   secret_key: 1234

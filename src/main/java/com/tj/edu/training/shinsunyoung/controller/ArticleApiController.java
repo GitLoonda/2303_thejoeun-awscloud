@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,8 +24,9 @@ public class ArticleApiController {
     private final ArticleService articleService;
 
     @PostMapping("/api/articles")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
-        Article article = articleService.save(request);
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request,
+                                              Principal principal) {
+        Article article = articleService.save(request, principal.getName());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(article);
@@ -64,7 +66,7 @@ public class ArticleApiController {
         articleService.deleteArticle(id);
 
         return ResponseEntity.ok()
-                .body(new String("삭세한 블로그 글 번호 id: " + id));
+                .body("삭세한 블로그 글 번호 id: " + id);
     }
 
     @PutMapping("/api/articles/{id}")
@@ -72,7 +74,7 @@ public class ArticleApiController {
         articleService.updateArticle(id, request);
 
         return ResponseEntity.ok()
-                .body(new String("수정한 블로그 글 번호 id: " + id));
+                .body("수정한 블로그 글 번호 id: " + id);
     }
 
 }

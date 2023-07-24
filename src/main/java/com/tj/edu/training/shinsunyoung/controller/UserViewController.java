@@ -13,6 +13,14 @@ public class UserViewController {
     public String login() {
         return "login";
     }
+
+    // oauth2 로그인 페이지로 이동
+    @GetMapping("/oauth2login")
+    public String oauth2login() { return "oauth2login"; }
+
+    @GetMapping("/user")
+    public String user() { return "user"; }
+
     // 회원가입 페이지로 이동
     @GetMapping("/signup")
     public String signup() {
